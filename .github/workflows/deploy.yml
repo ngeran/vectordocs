@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-  # This line allows you to trigger it manually from the Actions tab!
   workflow_dispatch:
 
 permissions:
@@ -23,7 +22,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20  # Updated to meet Docusaurus requirements
           cache: 'npm'
 
       - name: Install dependencies
