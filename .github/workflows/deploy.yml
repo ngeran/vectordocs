@@ -19,10 +19,15 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.Desktop }}
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20  # Updated to meet Docusaurus requirements
+          node-version: 20
           cache: 'npm'
 
       - name: Install dependencies
@@ -34,6 +39,5 @@ jobs:
           git config --global user.email "ngeran@gmail.com"
           npm run deploy
         env:
-          USE_SSH: false
+          USE_SSH: true
           GIT_USER: git
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
