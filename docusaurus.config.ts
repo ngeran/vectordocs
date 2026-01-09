@@ -20,11 +20,11 @@ const config: Config = {
   // FIXED: Your GitHub Pages production URL
   url: 'https://ngeran.github.io',
   // FIXED: The name of your GitHub repository with slashes
-  baseUrl: '/VectorDocs/',
+  baseUrl: '/vectordocs/',
 
   // GitHub pages deployment config.
   organizationName: 'ngeran', 
-  projectName: 'VectorDocs', 
+  projectName: 'vectordocs', 
   deploymentBranch: 'gh-pages',
   trailingSlash: false,
 
