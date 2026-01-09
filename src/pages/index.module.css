@@ -1,23 +1,79 @@
 /**
- * CSS files with the .module.css suffix will be treated as CSS modules
- * and scoped locally.
+ * Homepage Styles
+ * Custom styles for the Vector Docs homepage
  */
 
-.heroBanner {
-  padding: 4rem 0;
+.mainContent {
+  padding: var(--vector-spacing-3xl) 0;
+  background-color: var(--ifm-background-color);
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--vector-spacing-lg);
+  margin-bottom: var(--vector-spacing-3xl);
+}
+
+.sectionTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: var(--vector-spacing-xl);
+  color: var(--ifm-font-color-base);
+  letter-spacing: -0.01em;
+}
+
+/* Quick Links */
+.quickLinks {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--vector-spacing-lg);
+}
+
+.quickLink {
+  display: block;
+  padding: var(--vector-spacing-xl);
+  background-color: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-background-border-color);
+  border-radius: 0;
+  text-decoration: none;
+  color: inherit;
+  transition: all var(--vector-transition-base);
   text-align: center;
-  position: relative;
-  overflow: hidden;
 }
 
-@media screen and (max-width: 996px) {
-  .heroBanner {
-    padding: 2rem;
+.quickLink:hover {
+  border-color: var(--ifm-color-primary);
+}
+
+.quickLink h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: var(--vector-spacing-sm);
+  color: var(--ifm-font-color-base);
+}
+
+.quickLink p {
+  color: var(--ifm-font-color-secondary);
+  font-size: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+  .mainContent {
+    padding: var(--vector-spacing-2xl) 0;
   }
-}
 
-.buttons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  .container {
+    padding: 0 var(--vector-spacing-md);
+    margin-bottom: var(--vector-spacing-2xl);
+  }
+
+  .sectionTitle {
+    font-size: 1.5rem;
+  }
+
+  .quickLinks {
+    grid-template-columns: 1fr;
+  }
 }

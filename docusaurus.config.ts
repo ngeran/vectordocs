@@ -7,7 +7,13 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'Vector Docs',
   tagline: 'Official Documentation',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/favicon.svg',
+
+  // Client modules for browser-side code
+  clientModules: [
+    require.resolve('./src/client/sidebar-accordion.js'),
+    require.resolve('./src/client/sidebar-enhanced.js'),
+  ],
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
@@ -15,10 +21,10 @@ const config: Config = {
   },
 
   // Set the production url of your site here
-  url: 'https://ngeran.github.io',
+  url: 'http://localhost:3000',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/vectordocs/',
+  baseUrl: '/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -28,7 +34,7 @@ const config: Config = {
   deploymentBranch: 'gh-pages',
   trailingSlash: false,
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
@@ -82,13 +88,14 @@ const config: Config = {
       logo: {
         alt: 'My Site Logo',
         src: 'img/logo.svg',
+        className: 'navbar-custom-logo',
       },
       items: [
         {
           type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
+          sidebarId: 'docsSidebar',
           position: 'left',
-          label: 'Tutorial',
+          label: 'Posts',
         },
         {to: '/blog', label: 'Blog', position: 'left'},
         {

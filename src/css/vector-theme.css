@@ -1,0 +1,386 @@
+/**
+ * Vector Theme - Global Styles (Vercel-Style Dense Grid)
+ * Tighter spacing, denser layout, bento box aesthetic
+ */
+
+/* ============================================
+   CSS Custom Properties - Vector Theme
+   ============================================ */
+
+:root {
+  /* Spacing Scale - More Compact */
+  --vector-spacing-xs: 0.125rem;  /* 2px */
+  --vector-spacing-sm: 0.25rem;   /* 4px */
+  --vector-spacing-md: 0.5rem;    /* 8px */
+  --vector-spacing-lg: 1rem;      /* 16px */
+  --vector-spacing-xl: 1.5rem;    /* 24px */
+  --vector-spacing-2xl: 2rem;     /* 32px */
+  --vector-spacing-3xl: 3rem;     /* 48px */
+
+  /* Border Radius - No rounded corners */
+  --vector-radius-sm: 0;
+  --vector-radius-md: 0;
+  --vector-radius-lg: 0;
+  --vector-radius-xl: 0;
+
+  /* Shadows - Subtle */
+  --vector-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+  --vector-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --vector-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --vector-shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+
+  /* Transitions */
+  --vector-transition-fast: 100ms ease;
+  --vector-transition-base: 150ms ease;
+  --vector-transition-slow: 200ms ease;
+}
+
+/* ============================================
+   Gradient Definitions
+   ============================================ */
+
+.vector-gradient {
+  background: linear-gradient(135deg, var(--vector-gradient-start) 0%, var(--vector-gradient-end) 100%);
+}
+
+.vector-gradient-text {
+  background: linear-gradient(135deg, var(--vector-gradient-start) 0%, var(--vector-gradient-end) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================
+   Grid System Utilities (Dense)
+   ============================================ */
+
+.vector-grid {
+  display: grid;
+  gap: 0; /* No gaps - cards touch each other */
+}
+
+.vector-grid--dense {
+  gap: 0;
+}
+
+.vector-grid--spaced {
+  gap: var(--vector-spacing-md); /* 8px gap */
+}
+
+.vector-grid--cols-1 {
+  grid-template-columns: repeat(1, 1fr);
+}
+
+.vector-grid--cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.vector-grid--cols-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.vector-grid--cols-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* Col-span utilities for bento box layout */
+.vector-grid--span-2 {
+  grid-column: span 2;
+}
+
+.vector-grid--span-3 {
+  grid-column: span 3;
+}
+
+.vector-grid--span-4 {
+  grid-column: span 4;
+}
+
+/* Responsive Grid Breakpoints - 4 Columns on Desktop */
+@media (max-width: 767px) {
+  .vector-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .vector-grid--span-2,
+  .vector-grid--span-3,
+  .vector-grid--span-4 {
+    grid-column: span 1;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .vector-grid--responsive {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .vector-grid--responsive {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1440px) {
+  .vector-grid--responsive {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ============================================
+   Card Base Styles (Compact)
+   ============================================ */
+
+.vector-card {
+  background-color: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-background-border-color);
+  border-radius: 0;
+  overflow: hidden;
+  transition: all var(--vector-transition-base);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.vector-card:hover {
+  border-color: var(--ifm-color-primary);
+}
+
+.vector-card__image {
+  width: 100%;
+  height: 160px; /* Reduced from 200px */
+  object-fit: cover;
+  background-color: var(--ifm-background-color);
+}
+
+.vector-card__image-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.vector-card__content {
+  padding: var(--vector-spacing-lg); /* Reduced from 1.5rem */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.vector-card__title {
+  font-size: 1rem; /* Reduced from 1.25rem */
+  font-weight: 600;
+  margin-bottom: var(--vector-spacing-sm);
+  color: var(--ifm-font-color-base);
+  line-height: 1.4;
+}
+
+.vector-card__description {
+  font-size: 0.875rem; /* Reduced from 0.95rem */
+  color: var(--ifm-font-color-secondary);
+  margin-bottom: var(--vector-spacing-md);
+  flex: 1;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.vector-card__metadata {
+  display: flex;
+  align-items: center;
+  gap: var(--vector-spacing-md);
+  font-size: 0.75rem; /* Reduced from 0.85rem */
+  color: var(--ifm-font-color-secondary);
+  margin-top: auto;
+}
+
+.vector-card__date,
+.vector-card__read-time {
+  display: flex;
+  align-items: center;
+  gap: var(--vector-spacing-xs);
+}
+
+.vector-card__author {
+  display: flex;
+  align-items: center;
+  gap: var(--vector-spacing-sm);
+}
+
+.vector-card__author-avatar {
+  width: 20px; /* Reduced from 24px */
+  height: 20px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.vector-card__author-name {
+  font-size: 0.75rem;
+  color: var(--ifm-font-color-secondary);
+}
+
+/* ============================================
+   Hero Section Styles (Compact)
+   ============================================ */
+
+.vector-hero {
+  text-align: center;
+  padding: var(--vector-spacing-2xl) var(--vector-spacing-lg);
+  background: linear-gradient(180deg,
+    var(--ifm-background-color) 0%,
+    var(--ifm-background-surface-color) 100%);
+}
+
+.vector-hero__title {
+  font-size: clamp(2rem, 4vw, 3rem); /* Reduced */
+  font-weight: 700;
+  margin-bottom: var(--vector-spacing-md);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.vector-hero__subtitle {
+  font-size: 1rem; /* Reduced */
+  color: var(--ifm-font-color-secondary);
+  margin-bottom: var(--vector-spacing-xl);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+/* ============================================
+   Tabs Component
+   ============================================ */
+
+.vector-tabs {
+  display: flex;
+  justify-content: center;
+  gap: var(--vector-spacing-sm);
+  margin-bottom: var(--vector-spacing-xl);
+  flex-wrap: wrap;
+}
+
+.vector-tab {
+  padding: var(--vector-spacing-sm) var(--vector-spacing-md);
+  background: transparent;
+  border: 1px solid var(--ifm-background-border-color);
+  border-radius: var(--vector-radius-md);
+  color: var(--ifm-font-color-secondary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--vector-transition-base);
+}
+
+.vector-tab:hover {
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-font-color-base);
+}
+
+.vector-tab--active {
+  border-color: var(--ifm-color-primary);
+  background: var(--ifm-color-primary);
+  color: white;
+}
+
+/* ============================================
+   CTA Button
+   ============================================ */
+
+.vector-cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--vector-spacing-sm) var(--vector-spacing-lg);
+  background: var(--ifm-color-primary);
+  border: none;
+  border-radius: var(--vector-radius-md);
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--vector-transition-base);
+  text-decoration: none;
+}
+
+.vector-cta-button:hover {
+  opacity: 0.9;
+}
+
+.vector-cta-button--outline {
+  background: transparent;
+  border: 1px solid var(--ifm-background-border-color);
+  color: var(--ifm-font-color-base);
+}
+
+.vector-cta-button--outline:hover {
+  border-color: var(--ifm-color-primary);
+}
+
+/* ============================================
+   Animation Keyframes
+   ============================================ */
+
+@keyframes vector-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.vector-animate-in {
+  animation: vector-fade-in var(--vector-transition-slow) ease-out;
+}
+
+/* ============================================
+   Utility Classes
+   ============================================ */
+
+.vector-text-gradient {
+  background: linear-gradient(135deg, var(--vector-gradient-start) 0%, var(--vector-gradient-end) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.vector-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--vector-spacing-lg);
+}
+
+.vector-section {
+  padding: var(--vector-spacing-2xl) 0;
+}
+
+/* ============================================
+   Loading Skeleton
+   ============================================ */
+
+.vector-skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--ifm-background-surface-color) 0%,
+    var(--ifm-background-border-color) 50%,
+    var(--ifm-background-surface-color) 100%
+  );
+  background-size: 200% 100%;
+  animation: vector-skeleton-loading 1.5s ease-in-out infinite;
+  border-radius: var(--vector-radius-md);
+}
+
+@keyframes vector-skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

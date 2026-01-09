@@ -1,0 +1,94 @@
+/**
+ * ContentGrid Component Styles
+ */
+
+.grid {
+  display: grid;
+  gap: 0 !important;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Column Variants */
+.cols1 {
+  grid-template-columns: repeat(1, 1fr);
+}
+
+.cols2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.cols3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.cols4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* Max Width Variants */
+.maxWidthSm {
+  max-width: 640px;
+}
+
+.maxWidthMd {
+  max-width: 768px;
+}
+
+.maxWidthLg {
+  max-width: 1024px;
+}
+
+.maxWidthXl {
+  max-width: 1400px;
+}
+
+.maxWidthFull {
+  max-width: 100%;
+}
+
+/* Responsive Breakpoints */
+
+/* Mobile: 1 column always */
+@media (max-width: 767px) {
+  .grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Tablet: 2 columns */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .cols1,
+  .cols2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cols3,
+  .cols4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Desktop: specified columns (up to 3) */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .cols4 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Wide: specified columns (up to 4) */
+@media (min-width: 1440px) {
+  /* Already set by column variant classes */
+}
+
+/* Adjust gap on smaller screens */
+@media (max-width: 767px) {
+  .grid {
+    gap: var(--vector-spacing-md);
+  }
+}
+
+/* Animation for children */
+.grid > * {
+  animation: vector-fade-in 300ms ease-out;
+}

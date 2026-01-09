@@ -1,30 +1,2621 @@
 /**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
+ * Vector Theme - Custom CSS Variables
+ * Grid-based card layout system with modern dark/light mode support
  */
 
-/* You can override the default Infima variables here. */
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+/* Import vector theme utilities */
+@import './vector-theme.css';
+
+/* ============================================
+   Light Mode Colors - Pure Black & White
+   ============================================ */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
+  /* Primary Color - Pure Grayscale */
+  --ifm-color-primary: #000000;
+  --ifm-color-primary-dark: #1a1a1a;
+  --ifm-color-primary-darker: #2a2a2a;
+  --ifm-color-primary-darkest: #3a3a3a;
+  --ifm-color-primary-light: #4a4a4a;
+  --ifm-color-primary-lighter: #5a5a5a;
+  --ifm-color-primary-lightest: #6a6a6a;
+
+  /* Background Colors - Light Mode */
+  --ifm-background-color: #ffffff;
+  --ifm-background-surface-color: #fafafa;
+  --ifm-background-border-color: #e5e5e5;
+
+  /* Text Colors */
+  --ifm-font-color-base: #000000;
+  --ifm-font-color-secondary: #666666;
+  --ifm-font-color-emphasis: #000000;
+
+  /* Code Font Size */
   --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+  /* Highlighted Code Line - Grayscale */
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.08);
+
+  /* Vector Gradient - Light Grayscale */
+  --vector-gradient-start: #1a1a1a;
+  --vector-gradient-end: #4a4a4a;
+
+  /* Typography - Light Mode */
+  --ifm-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --ifm-font-family-heading: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
+/* ============================================
+   Dark Mode Colors - Pure Black & White
+   ============================================ */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  /* Primary Color - Pure Grayscale */
+  --ifm-color-primary: #ffffff;
+  --ifm-color-primary-dark: #e5e5e5;
+  --ifm-color-primary-darker: #d5d5d5;
+  --ifm-color-primary-darkest: #c5c5c5;
+  --ifm-color-primary-light: #b5b5b5;
+  --ifm-color-primary-lighter: #a5a5a5;
+  --ifm-color-primary-lightest: #959595;
+
+  /* Background Colors - Deep Black Palette */
+  --ifm-background-color: #000000;
+  --ifm-background-surface-color: #0a0a0a;
+  --ifm-background-border-color: #2a2a2a;
+
+  /* Text Colors */
+  --ifm-font-color-base: #ffffff;
+  --ifm-font-color-secondary: #999999;
+  --ifm-font-color-emphasis: #ffffff;
+
+  /* Highlighted Code Line - Grayscale */
+  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.08);
+
+  /* Vector Gradient - Dark Grayscale */
+  --vector-gradient-start: #e5e5e5;
+  --vector-gradient-end: #a5a5a5;
+}
+
+/* ============================================
+   Global Overrides
+   ============================================ */
+
+body {
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Subtle grid pattern overlay */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    linear-gradient(var(--ifm-background-border-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--ifm-background-border-color) 1px, transparent 1px);
+  background-size: 50px 50px;
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Animated geometric shapes */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    /* Shape 1 - Top right blob */
+    radial-gradient(ellipse at 85% 15%, var(--ifm-color-primary-lightest) 0%, transparent 50%),
+    /* Shape 2 - Bottom left blob */
+    radial-gradient(ellipse at 15% 85%, var(--ifm-color-primary-lightest) 0%, transparent 50%),
+    /* Shape 3 - Center subtle glow */
+    radial-gradient(circle at 50% 50%, var(--ifm-color-primary-lightest) 0%, transparent 60%);
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: -1;
+  animation: slowFloat 20s ease-in-out infinite;
+}
+
+@keyframes slowFloat {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(30px, -30px) scale(1.05);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.95);
+  }
+}
+
+/* Ensure content is above background */
+.docusaurus-mt-lg,
+.main-wrapper,
+.footer,
+.menu {
+  position: relative;
+  z-index: 1;
+}
+
+/* Ensure navbar is always on top of everything */
+.navbar {
+  position: relative !important;
+  z-index: 1000 !important;
+}
+
+.navbar__link,
+.navbar__item,
+.menu__link,
+.menu__list-item,
+.sidebar,
+.docSidebarContainer {
+  position: relative;
+  z-index: 10 !important;
+}
+
+/* Smooth color transitions */
+* {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+/* Better focus visibility for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--ifm-background-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--ifm-background-border-color);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ifm-color-primary);
+}
+
+/* ============================================
+   Content Layout Improvements
+   ============================================ */
+
+/* Better spacing for markdown content */
+.markdown {
+  line-height: 1.7;
+}
+
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4,
+.markdown h5,
+.markdown h6 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.markdown h1:first-child {
+  margin-top: 0;
+}
+
+/* Improved blockquotes */
+.markdown blockquote {
+  border-left-color: var(--ifm-color-primary);
+  background-color: var(--ifm-background-surface-color);
+  border-radius: 0 var(--vector-radius-md) var(--vector-radius-md) 0;
+  padding: var(--vector-spacing-md);
+}
+
+/* Improved links */
+.markdown a {
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.markdown a:hover {
+  text-decoration: underline;
+}
+
+/* ============================================
+   Documentation Cards - Grid Layout (Same Design)
+   ============================================ */
+
+/* Doc main container */
+.docMainContainer {
+  max-width: 1400px;
+}
+
+/* IMPORTANT: Override ALL doc cards to have no rounded corners */
+.docCard,
+.doc-card,
+article.doc-item,
+.doc-post-item,
+.docs-list li,
+.doc-posts li,
+.pagination-nav__item,
+.nav-item,
+.nav-link {
+  border-radius: 0 !important;
+}
+
+/* Doc listing page - category view */
+.doc-posts,
+.docs-list,
+.doc-item-col,
+.pagination-nav__item {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin-top: var(--vector-spacing-xl);
+}
+
+/* For the generated docs list page */
+.doc-item-container {
+  display: contents;
+}
+
+.doc-item {
+  break-inside: avoid;
+  margin-bottom: 0;
+}
+
+/* Responsive doc grid */
+@media (max-width: 767px) {
+  .doc-posts,
+  .docs-list,
+  .doc-item-col,
+  .pagination-nav__item {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .doc-posts,
+  .docs-list,
+  .doc-item-col,
+  .pagination-nav__item {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .doc-posts,
+  .docs-list,
+  .doc-item-col,
+  .pagination-nav__item {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1440px) {
+  .doc-posts,
+  .docs-list,
+  .doc-item-col,
+  .pagination-nav__item {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Individual doc card wrapper */
+.docCardWrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Doc card styling - Same design as VectorCard */
+.docCard {
+  background-color: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-background-border-color) !important;
+  border-radius: 0 !important;
+  overflow: hidden;
+  transition: border-color 150ms ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+}
+
+.docCard:hover {
+  border-color: var(--ifm-color-primary);
+}
+
+/* Doc card image with corner brackets - full width with padding */
+.docCardImage,
+.doc-card-image,
+.doc-card .image {
+  width: 100%;
+  margin: 0;
+  padding: 16px; /* Space for corners */
+  padding-top: calc(56.25% + 16px); /* 16:9 + top padding */
+  position: relative;
+  overflow: hidden;
+  background-color: var(--ifm-background-color);
+  border-radius: 0 !important;
+  box-sizing: border-box;
+}
+
+.docCardImage img,
+.doc-card-image img,
+.doc-card .image img {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  width: calc(100% - 32px);
+  height: calc(100% - 32px);
+  object-fit: cover;
+  transition: transform 200ms ease;
+}
+
+.docCard:hover .docCardImage img,
+.doc-card:hover .doc-card-image img {
+  transform: scale(1.05);
+}
+
+/* Add corner elements to doc cards - Top-left and Bottom-right */
+.docCardImage::before,
+.doc-card-image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0.625rem;
+  height: 0.625rem;
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 5;
+  transition: opacity 150ms ease;
+  /* Top-left corner - L-shaped */
+  border: 1px solid var(--ifm-color-primary);
+  border-top-width: 0;
+  border-left-width: 0;
+}
+
+.docCardImage::after,
+.doc-card-image::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0.625rem;
+  height: 0.625rem;
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 5;
+  transition: opacity 150ms ease;
+  /* Bottom-right corner - L-shaped */
+  border: 1px solid var(--ifm-color-primary);
+  border-bottom-width: 0;
+  border-right-width: 0;
+}
+
+/* Hover effect - make corners more visible */
+.docCard:hover .docCardImage::before,
+.docCard:hover .docCardImage::after,
+.doc-card:hover .doc-card-image::before,
+.doc-card:hover .doc-card-image::after {
+  opacity: 0.7;
+}
+
+/* Light mode corner colors */
+[data-theme='light'] .docCardImage::before,
+[data-theme='light'] .doc-card-image::before,
+[data-theme='light'] .docCardImage::after,
+[data-theme='light'] .doc-card-image::after {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Doc card content */
+.docCardContent,
+.doc-card-content {
+  padding: 0 var(--vector-spacing-md) var(--vector-spacing-md);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.docCardTitle,
+.doc-card-title,
+.doc-card .title {
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  margin-bottom: var(--vector-spacing-sm) !important;
+  color: var(--ifm-font-color-base) !important;
+  line-height: 1.4 !important;
+  border-radius: 0 !important;
+}
+
+.docCardDescription,
+.doc-card-description,
+.doc-card .description {
+  font-size: 0.813rem !important;
+  color: var(--ifm-font-color-secondary) !important;
+  margin-bottom: var(--vector-spacing-sm) !important;
+  line-height: 1.5 !important;
+  display: -webkit-box;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  border-radius: 0 !important;
+}
+
+/* Doc card metadata */
+.docCardMetadata,
+.doc-card-metadata {
+  display: flex;
+  align-items: center;
+  gap: var(--vector-spacing-md);
+  font-size: 0.75rem;
+  color: var(--ifm-font-color-secondary);
+  margin-top: auto;
+  padding-top: var(--vector-spacing-sm);
+}
+
+/* For the auto-generated docs listing */
+article.doc-item {
+  break-inside: avoid;
+  margin-bottom: 0;
+  background-color: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-background-border-color);
+  border-radius: 0 !important;
+  overflow: hidden;
+  transition: border-color 150ms ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0 !important;
+}
+
+article.doc-item:hover {
+  border-color: var(--ifm-color-primary);
+}
+
+article.doc-item h2 a,
+article.doc-item h3 a {
+  text-decoration: none;
+  color: var(--ifm-font-color-base);
+}
+
+article.doc-item h2 a:hover,
+article.doc-item h3 a:hover {
+  color: var(--ifm-color-primary);
+}
+
+article.doc-item p {
+  font-size: 0.813rem;
+  color: var(--ifm-font-color-secondary);
+  margin: var(--vector-spacing-sm) 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  padding: 0 var(--vector-spacing-md);
+}
+
+article.doc-item > h2,
+article.doc-item > h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: var(--vector-spacing-sm);
+  padding: var(--vector-spacing-md) var(--vector-spacing-md) 0;
+}
+
+/* Remove default list styles from docs listing */
+.docs-list > li,
+.doc-posts > li {
+  list-style: none;
+  margin: 0;
+  border-radius: 0 !important;
+}
+
+/* Card link styling */
+.docCard a,
+article.doc-item a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.docCard a:hover,
+article.doc-item a:hover {
+  text-decoration: none;
+}
+
+/* Force ALL potential card containers to have no rounded corners */
+.nav-item,
+.nav-link,
+.menu__link,
+.card,
+.pagination-nav__link,
+.nav-link-item,
+.nav-link-active {
+  border-radius: 0 !important;
+}
+
+/* Global override for ANY card-like element */
+.doc-item *,
+.docCard *,
+.doc-card *,
+.docs-list *,
+.doc-posts * {
+  border-radius: 0 !important;
+}
+
+/* Ensure all images in cards have no rounded corners */
+.docCardImage,
+.doc-card-image,
+.doc-card .image,
+article.doc-item img,
+.blog-post-item img,
+.blog-post-image {
+  border-radius: 0 !important;
+}
+
+/* ============================================
+   Blog Posts - Grid Layout (Same Design)
+   ============================================ */
+
+/* Blog listing page */
+.blog-list-page {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Transform blog posts into cards - Same design as VectorCard */
+.blog-post-item {
+  background-color: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-background-border-color) !important;
+  border-radius: 0;
+  overflow: hidden;
+  transition: border-color 150ms ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.blog-post-item:hover {
+  border-color: var(--ifm-color-primary);
+}
+
+.blog-post-item a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Blog post title */
+.blog-post-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: var(--vector-spacing-sm);
+  color: var(--ifm-font-color-base);
+}
+
+.blog-post-title:hover {
+  color: var(--ifm-color-primary);
+}
+
+/* Blog post image with corner brackets - full width with padding */
+.blog-post-image {
+  width: 100%;
+  margin: 0;
+  padding: 16px; /* Space for corners */
+  padding-top: calc(56.25% + 16px); /* 16:9 + top padding */
+  position: relative;
+  overflow: hidden;
+  background-color: var(--ifm-background-color);
+  box-sizing: border-box;
+}
+
+.blog-post-image img {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  width: calc(100% - 32px);
+  height: calc(100% - 32px);
+  object-fit: cover;
+  transition: transform 200ms ease;
+}
+
+.blog-post-item:hover .blog-post-image img {
+  transform: scale(1.05);
+}
+
+/* Add corner elements to blog posts - Top-left and Bottom-right */
+.blog-post-image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0.625rem;
+  height: 0.625rem;
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 5;
+  transition: opacity 150ms ease;
+  /* Top-left corner - L-shaped */
+  border: 1px solid var(--ifm-color-primary);
+  border-top-width: 0;
+  border-left-width: 0;
+}
+
+.blog-post-image::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0.625rem;
+  height: 0.625rem;
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 5;
+  transition: opacity 150ms ease;
+  /* Bottom-right corner - L-shaped */
+  border: 1px solid var(--ifm-color-primary);
+  border-bottom-width: 0;
+  border-right-width: 0;
+}
+
+/* Hover effect - make corners more visible */
+.blog-post-item:hover .blog-post-image::before,
+.blog-post-item:hover .blog-post-image::after {
+  opacity: 0.7;
+}
+
+/* Light mode corner colors for blog posts */
+[data-theme='light'] .blog-post-image::before,
+[data-theme='light'] .blog-post-image::after {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Blog post content */
+.blog-post-content {
+  padding: 0 var(--vector-spacing-md) var(--vector-spacing-md);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Blog post description */
+.blog-post-description {
+  font-size: 0.813rem;
+  color: var(--ifm-font-color-secondary);
+  margin-bottom: var(--vector-spacing-sm);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Blog post metadata */
+.blog-post-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--vector-spacing-md);
+  font-size: 0.75rem;
+  color: var(--ifm-font-color-secondary);
+  margin-top: auto;
+  padding-top: var(--vector-spacing-sm);
+}
+
+/* Blog listing grid layout */
+.blog-posts {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin-top: var(--vector-spacing-xl);
+}
+
+/* Responsive blog grid */
+@media (max-width: 767px) {
+  .blog-posts {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .blog-posts {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .blog-posts {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1440px) {
+  .blog-posts {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ============================================
+   Navbar Styling Enhancements
+   ============================================ */
+
+.navbar {
+  border-bottom: 1px solid var(--ifm-background-border-color);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.navbar-sidebar {
+  background-color: var(--ifm-background-surface-color);
+}
+
+/* ============================================
+   Navbar Grid-Style Links
+   ============================================ */
+
+/* Navbar container with grid background */
+.navbar__items--right {
+  position: relative;
+}
+
+/* Create grid lines between navbar items */
+.navbar__items {
+  position: relative;
+}
+
+/* Add grid pattern to navbar items container */
+.navbar__items--right .navbar__item {
+  position: relative;
+}
+
+/* Style individual links without borders */
+.navbar__link {
+  position: relative;
+  padding: 0.5rem 1.25rem !important;
+  border: none !important;
+  border-radius: 0 !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: transparent;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* Add vertical grid lines between items */
+.navbar__item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 60%;
+  background: var(--ifm-background-border-color);
+}
+
+/* Ensure link text is above the grid pattern */
+.navbar__link span,
+.navbar__link {
+  position: relative;
+  z-index: 1;
+}
+
+/* Hover state */
+.navbar__link:hover {
+  color: #999999 !important;
+  background: transparent;
+}
+
+/* Active state */
+.navbar__link--active {
+  color: #999999 !important;
+  background: transparent !important;
+}
+
+/* Remove grid pattern completely */
+.navbar__link::before {
+  display: none;
+}
+
+/* Dropdown menu styling */
+.dropdown__menu {
+  border: 1px solid var(--ifm-background-border-color) !important;
+  border-radius: 0 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  background: var(--ifm-background-surface-color);
+  margin-top: 0.5rem;
+}
+
+.dropdown__link {
+  border-radius: 0 !important;
+  border: none !important;
+  transition: all 0.2s ease;
+}
+
+.dropdown__link:hover {
+  background: var(--ifm-background-color) !important;
+  border-left: 2px solid var(--ifm-color-primary) !important;
+}
+
+/* ============================================
+   Footer Styling
+   ============================================ */
+
+.footer {
+  background-color: var(--ifm-background-surface-color);
+  border-top: 1px solid var(--ifm-background-border-color);
+  margin-top: var(--vector-spacing-3xl);
+}
+
+/* ============================================
+   Pagination Styling
+   ============================================ */
+
+.pagination-nav {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--vector-spacing-lg);
+  margin-top: var(--vector-spacing-3xl);
+}
+
+.pagination-nav__link {
+  border: 1px solid var(--ifm-background-border-color);
+  border-radius: 0;
+  padding: var(--vector-spacing-lg);
+  transition: all var(--vector-transition-base);
+  background-color: var(--ifm-background-surface-color);
+}
+
+.pagination-nav__link:hover {
+  border-color: var(--ifm-color-primary);
+}
+
+/* ============================================
+   Sidebar Styling - Vercel Aesthetic
+   ============================================ */
+
+.theme-doc-sidebar-container {
+  border-right: 1px solid var(--ifm-background-border-color);
+  padding-right: var(--vector-spacing-md);
+}
+
+.theme-doc-sidebar-menu {
+  list-style: none;
+  padding-left: 0;
+}
+
+.theme-doc-sidebar-menu li {
+  margin-bottom: 0;
+}
+
+/* Menu link styling */
+.menu__link {
+  color: var(--ifm-font-color-secondary);
+  padding: var(--vector-spacing-sm) var(--vector-spacing-md);
+  border-radius: 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 150ms ease;
+  border-left: 2px solid transparent;
+}
+
+.menu__link:hover {
+  color: var(--ifm-font-color-base);
+  background-color: transparent;
+  border-left-color: var(--ifm-background-border-color);
+}
+
+/* Active menu link */
+.menu__link--active,
+.menu__link--active:not(.menu__link--sublist) {
+  background-color: transparent;
+  color: var(--ifm-font-color-base);
+  border-left-color: var(--ifm-color-primary);
+  border-radius: 0;
+  font-weight: 600;
+}
+
+/* Sublist styling */
+.menu__list {
+  margin-left: var(--vector-spacing-md);
+  padding-left: 0;
+  list-style: none;
+}
+
+.menu__list-item {
+  margin: 0;
+}
+
+.menu__list-item--collapsed .menu__link--sublist {
+  margin-bottom: 0;
+}
+
+/* Sublist header */
+.menu__link--sublist {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ifm-font-color-base);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: var(--vector-spacing-md);
+  margin-bottom: var(--vector-spacing-xs);
+}
+
+.menu__link--sublist::after {
+  background-color: var(--ifm-font-color-secondary);
+}
+
+/* Category title */
+.menu__list-item > .menu__link--sublist {
+  font-size: 0.75rem;
+  color: var(--ifm-font-color-secondary);
+  margin-bottom: 0;
+  padding-bottom: var(--vector-spacing-sm);
+  border-bottom: 1px solid var(--ifm-background-border-color);
+}
+
+/* Scrollbar for sidebar */
+.theme-doc-sidebar-menu::-webkit-scrollbar {
+  width: 4px;
+}
+
+.theme-doc-sidebar-menu::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.theme-doc-sidebar-menu::-webkit-scrollbar-thumb {
+  background: var(--ifm-background-border-color);
+  border-radius: 2px;
+}
+
+.theme-doc-sidebar-menu::-webkit-scrollbar-thumb:hover {
+  background: var(--ifm-font-color-secondary);
+}
+
+/* Mobile sidebar */
+.navbar-sidebar {
+  background-color: var(--ifm-background-surface-color);
+  border-right: 1px solid var(--ifm-background-border-color);
+}
+
+.menu {
+  border: none;
+  padding: var(--vector-spacing-md);
+}
+
+/* Table of contents */
+.table-of-contents {
+  border-left: 1px solid var(--ifm-background-border-color);
+  padding-left: var(--vector-spacing-md);
+}
+
+.table-of-contents li {
+  margin: 0;
+  padding: var(--vector-spacing-xs) 0;
+}
+
+.table-of-contents .toc-link {
+  color: var(--ifm-font-color-secondary);
+  font-size: 0.813rem;
+  font-weight: 500;
+  border-left: 2px solid transparent;
+  padding-left: var(--vector-spacing-sm);
+  transition: all 150ms ease;
+}
+
+.table-of-contents .toc-link:hover {
+  color: var(--ifm-font-color-base);
+  border-left-color: var(--ifm-background-border-color);
+}
+
+.table-of-contents .toc-link.active {
+  color: var(--ifm-color-primary);
+  border-left-color: var(--ifm-color-primary);
+  font-weight: 600;
+}
+
+/* ============================================
+   Modern Sidebar Styling
+   ============================================ */
+
+/* Sidebar Container */
+.doc-sidebar-container {
+  border-right: 1px solid var(--ifm-background-border-color);
+}
+
+/* Sidebar Menu */
+.menu {
+  padding: 0;
+}
+
+.menu__list {
+  margin-bottom: 0;
+}
+
+/* Menu Items - Minimalist Design */
+.menu__link {
+  color: var(--ifm-font-color-secondary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  margin: 0.125rem 0;
+  transition: all 150ms ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.menu__link:hover {
+  background-color: var(--ifm-background-surface-color);
+  color: var(--ifm-font-color-base);
+}
+
+.menu__link--active {
+  background-color: var(--ifm-color-primary);
+  color: var(--ifm-background-color) !important;
+  font-weight: 600;
+}
+
+/* Category Headers */
+.menu__list-item--collapsed .menu__link--sublist {
+  opacity: 0.8;
+}
+
+.menu__list-item--collapsed .menu__link--sublist:hover {
+  opacity: 1;
+}
+
+/* Submenu Items */
+.menu__list-item {
+  margin: 0;
+}
+
+.menu__list .menu__list {
+  margin-left: 0.75rem;
+  padding-left: 0.75rem;
+  border-left: 1px solid var(--ifm-background-border-color);
+}
+
+/* Collapse/Expand Icon */
+.menu__caret {
+  transition: transform 200ms ease;
+}
+
+.menu__list-item--collapsed .menu__caret {
+  transform: rotate(-90deg);
+}
+
+/* Sidebar Scrollbar */
+.doc-sidebar-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.docSidebarDesktop {
+  max-width: 280px !important;
+  min-width: 280px !important;
+}
+
+/* Mobile Sidebar */
+.menu-sidebar {
+  padding: 1rem;
+}
+
+/* Hide sidebar on very small screens */
+@media (max-width: 996px) {
+  .docSidebar {
+    display: none;
+  }
+}
+
+/* ============================================
+   Enhanced Modern Sidebar UI
+   ============================================ */
+
+/* Sidebar wrapper with subtle depth */
+.doc-sidebar-container {
+  background: var(--ifm-background-color);
+  border-right: 1px solid var(--ifm-background-border-color);
+}
+
+/* Main menu container */
+.theme-doc-sidebar-menu {
+  padding: 0.5rem 0.75rem;
+}
+
+/* Category Item Styling */
+.menu__list-item {
+  margin-bottom: 0.25rem;
+}
+
+/* Main Category Links */
+.menu__link--sublist {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  padding: 0.625rem 0.875rem;
+  color: var(--ifm-font-color-base);
+  border-radius: 8px;
+  margin-bottom: 0.125rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 180ms cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.menu__link--sublist::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 0;
+  background: var(--ifm-color-primary);
+  border-radius: 0 2px 2px 0;
+  transition: height 180ms ease;
+}
+
+.menu__link--sublist:hover::before {
+  height: 60%;
+}
+
+.menu__link--sublist:hover {
+  background: var(--ifm-background-surface-color);
+  transform: translateX(2px);
+}
+
+/* Submenu Items */
+.menu__list .menu__list {
+  margin-left: 0;
+  padding-left: 0;
+  border-left: none;
+  margin-top: 0.25rem;
+}
+
+.menu__list .menu__list .menu__list-item {
+  margin-bottom: 0.125rem;
+}
+
+/* Document Links */
+.menu__link {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  padding: 0.5rem 0.875rem 0.5rem 2rem;
+  color: var(--ifm-font-color-secondary);
+  border-radius: 6px;
+  transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.menu__link::before {
+  content: '';
+  position: absolute;
+  left: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 4px;
+  background: var(--ifm-background-border-color);
+  border-radius: 50%;
+  transition: all 150ms ease;
+}
+
+.menu__link:hover {
+  background: var(--ifm-background-surface-color);
+  color: var(--ifm-font-color-base);
+  padding-left: 2.25rem;
+}
+
+.menu__link:hover::before {
+  background: var(--ifm-color-primary);
+  transform: translateY(-50%) scale(1.25);
+}
+
+/* Active States */
+.menu__link--active,
+.menu__link--active:not(.menu__link--sublist) {
+  background: var(--ifm-color-primary) !important;
+  color: var(--ifm-background-color) !important;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.menu__link--active::before {
+  background: var(--ifm-background-color) !important;
+  transform: translateY(-50%) scale(1.5);
+}
+
+/* Caret Icon Styling */
+.menu__caret {
+  color: var(--ifm-font-color-secondary);
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0.7;
+}
+
+.menu__list-item--collapsed .menu__caret {
+  transform: rotate(-90deg) scale(0.9);
+  opacity: 0.5;
+}
+
+.menu__link--sublist:hover .menu__caret {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.menu__list-item--collapsed .menu__link--sublist:hover .menu__caret {
+  transform: rotate(-90deg) scale(1.1);
+}
+
+/* Category Header Hover State */
+.menu__list-item--collapsed .menu__link--sublist {
+  opacity: 0.7;
+}
+
+.menu__list-item--collapsed .menu__link--sublist:hover {
+  opacity: 1;
+}
+
+/* Scrollbar Styling */
+.doc-sidebar-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+.doc-sidebar-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.doc-sidebar-container::-webkit-scrollbar-thumb {
+  background: var(--ifm-background-border-color);
+  border-radius: 4px;
+  transition: background 150ms ease;
+}
+
+.doc-sidebar-container::-webkit-scrollbar-thumb:hover {
+  background: var(--ifm-color-primary);
+}
+
+/* Mobile Sidebar Enhancements */
+@media (max-width: 996px) {
+  .menu-sidebar {
+    background: var(--ifm-background-color);
+  }
+  
+  .theme-doc-sidebar-menu {
+    padding: 1rem;
+  }
+  
+  .menu__link,
+  .menu__link--sublist {
+    padding: 0.75rem 1rem;
+  }
+}
+
+/* Smooth Scroll Behavior */
+.doc-sidebar-container {
+  scroll-behavior: smooth;
+}
+
+/* Focus States for Accessibility */
+.menu__link:focus,
+.menu__link--sublist:focus {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+
+/* Badge/Count Styling (if needed later) */
+.menu__link-badge {
+  background: var(--ifm-background-surface-color);
+  color: var(--ifm-font-color-secondary);
+  font-size: 0.6875rem;
+  padding: 0.125rem 0.375rem;
+  border-radius: 4px;
+  font-weight: 600;
+  margin-left: auto;
+}
+
+/* Subtle Animation on Load */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.menu__list-item {
+  animation: slideIn 200ms ease backwards;
+}
+
+.menu__list-item:nth-child(1) { animation-delay: 0ms; }
+.menu__list-item:nth-child(2) { animation-delay: 25ms; }
+.menu__list-item:nth-child(3) { animation-delay: 50ms; }
+.menu__list-item:nth-child(4) { animation-delay: 75ms; }
+.menu__list-item:nth-child(5) { animation-delay: 100ms; }
+.menu__list-item:nth-child(n+6) { animation-delay: 125ms; }
+
+/* ============================================
+   Sidebar Layout & Dimensions
+   ============================================ */
+
+/* Desktop Sidebar Width */
+.docSidebarContainer {
+  max-width: 280px !important;
+  width: 280px !important;
+}
+
+.docSidebar {
+  max-width: 280px !important;
+  min-width: 280px !important;
+}
+
+/* Main Content Area Adjustments */
+.docMainContainer {
+  max-width: none !important;
+}
+
+.docItemContainer {
+  max-width: 760px;
+}
+
+/* Sidebar Sticky Behavior */
+.doc-sidebar {
+  position: sticky;
+  top: calc(var(--ifm-navbar-height) + 1rem);
+  max-height: calc(100vh - var(--ifm-navbar-height) - 2rem);
+  overflow-y: auto;
+  padding: 0.5rem 0;
+}
+
+/* Remove horizontal scroll from sidebar */
+.theme-doc-sidebar-menu {
+  overflow-x: visible;
+}
+
+/* Ensure proper spacing between sidebar and content */
+@media (min-width: 997px) {
+  .docMainContainer {
+    display: flex;
+    gap: 3rem;
+  }
+  
+  .docItemContainer {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+/* Tablet adjustments */
+@media (min-width: 997px) and (max-width: 1200px) {
+  .docSidebarContainer {
+    max-width: 240px !important;
+    width: 240px !important;
+  }
+  
+  .docSidebar {
+    max-width: 240px !important;
+    min-width: 240px !important;
+  }
+  
+  .docItemContainer {
+    max-width: 600px;
+  }
+}
+
+/* ============================================
+   Documentation Page Styling
+   ============================================ */
+
+/* Breadcrumb Improvements */
+.theme-doc-breadcrumbs {
+  margin-bottom: 1.5rem;
+  font-size: 0.8125rem;
+}
+
+.breadcrumbs-item__link {
+  color: var(--ifm-font-color-secondary);
+  transition: color 150ms ease;
+}
+
+.breadcrumbs-item__link:hover {
+  color: var(--ifm-color-primary);
+}
+
+.breadcrumbs-item__separator {
+  color: var(--ifm-background-border-color);
+  margin: 0 0.5rem;
+}
+
+/* Page Title */
+h1.theme-doc-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+/* Last Update Time */
+.theme-doc-last-updated {
+  font-size: 0.8125rem;
+  color: var(--ifm-font-color-secondary);
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--ifm-background-border-color);
+}
+
+/* Pagination */
+.pagination-nav {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--ifm-background-border-color);
+}
+
+.pagination-nav__link {
+  border: 1px solid var(--ifm-background-border-color);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  transition: all 180ms ease;
+  background: var(--ifm-background-surface-color);
+}
+
+.pagination-nav__link:hover {
+  border-color: var(--ifm-color-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.pagination-nav__label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ifm-font-color-secondary);
+  margin-bottom: 0.25rem;
+}
+
+.pagination-nav__title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ifm-font-color-base);
+}
+
+/* Edit Link */
+.theme-doc-edit-this-page {
+  font-size: 0.8125rem;
+  color: var(--ifm-font-color-secondary);
+  margin-bottom: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 150ms ease;
+}
+
+.theme-doc-edit-this-page:hover {
+  color: var(--ifm-color-primary);
+}
+
+/* Table of Contents */
+.table-of-contents {
+  position: sticky;
+  top: calc(var(--ifm-navbar-height) + 2rem);
+  max-height: calc(100vh - var(--ifm-navbar-height) - 4rem);
+  overflow-y: auto;
+  padding-left: 1.5rem;
+  border-left: 2px solid var(--ifm-background-border-color);
+}
+
+.table-of-contents::before {
+  content: 'Contents';
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ifm-font-color-secondary);
+  margin-bottom: 1rem;
+}
+
+/* On This Page Header */
+.theme-doc-toc-mobile .toc-fluid {
+  font-size: 0.875rem;
+}
+
+/* Code Block Enhancements */
+.theme-code-block {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Callouts and Admonitions */
+.admonition {
+  border-radius: 8px;
+  border: 1px solid var(--ifm-background-border-color);
+  margin: 1.5rem 0;
+}
+
+.admonition-heading {
+  font-weight: 600;
+  font-size: 0.9375rem;
+}
+
+/* Image Styling */
+.theme-doc-markdown img {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  max-width: 100%;
+  height: auto;
+}
+
+/* Smooth Scroll for All Anchor Links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Content Improvements */
+.markdown {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--ifm-font-color-base);
+}
+
+.markdown h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--ifm-background-border-color);
+}
+
+.markdown h3 {
+  font-size: 1.375rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.markdown h4 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.markdown p {
+  margin-bottom: 1.25rem;
+}
+
+.markdown a {
+  color: var(--ifm-color-primary);
+  font-weight: 500;
+  transition: color 150ms ease;
+}
+
+.markdown a:hover {
+  text-decoration: underline;
+}
+
+/* List Improvements */
+.markdown ul,
+.markdown ol {
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+}
+
+.markdown li {
+  margin-bottom: 0.5rem;
+}
+
+.markdown li > ul,
+.markdown li > ol {
+  margin-top: 0.5rem;
+}
+
+/* Blockquote Styling */
+.markdown blockquote {
+  border-left: 4px solid var(--ifm-color-primary);
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  background: var(--ifm-background-surface-color);
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+}
+
+/* ============================================
+   Sidebar Caret & Accordion Behavior
+   ============================================ */
+
+/* Remove gray background from caret/arrow */
+.menu__caret {
+  background: transparent !important;
+  color: var(--ifm-font-color-secondary) !important;
+  padding: 0 !important;
+  width: auto !important;
+  height: auto !important;
+  border-radius: 0 !important;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0.6;
+}
+
+.menu__caret:hover {
+  background: transparent !important;
+  color: var(--ifm-color-primary) !important;
+  opacity: 1;
+}
+
+/* Ensure caret has proper spacing */
+.menu__link--sublist .menu__caret {
+  margin-left: 0.5rem;
+}
+
+/* ============================================
+   Modern Minimalistic Sidebar - FIXED
+   ============================================ */
+
+/* Remove all previous sidebar styling first */
+.doc-sidebar-container,
+.theme-doc-sidebar-menu,
+.menu__list,
+.menu__list-item,
+.menu__link,
+.menu__link--sublist,
+.menu__caret {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Main sidebar container */
+.doc-sidebar-container {
+  padding: 1rem 0.75rem;
+}
+
+/* Menu list */
+.theme-doc-sidebar-menu {
+  margin: 0;
+  padding: 0;
+}
+
+/* List items */
+.menu__list-item {
+  margin-bottom: 0.25rem;
+}
+
+/* Category headers (Routing, Projects, Junos) */
+.menu__link--sublist {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ifm-font-color-base) !important;
+  padding: 0.625rem 0.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 6px;
+  transition: background 150ms ease;
+  margin: 0;
+}
+
+.menu__link--sublist:hover {
+  background: var(--ifm-background-surface-color);
+}
+
+/* Caret/Arrow - Minimalistic */
+.menu__caret {
+  opacity: 0.5;
+  transition: transform 200ms ease, opacity 150ms ease;
+}
+
+.menu__list-item--collapsed .menu__caret {
+  transform: rotate(-90deg);
+  opacity: 0.4;
+}
+
+.menu__link--sublist:hover .menu__caret {
+  opacity: 0.8;
+}
+
+/* Submenu */
+.menu__list .menu__list {
+  margin: 0.5rem 0 0 0;
+  padding: 0;
+  border-left: 1px solid var(--ifm-background-border-color);
+  margin-left: 1rem;
+}
+
+/* Document links */
+.menu__link {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--ifm-font-color-secondary) !important;
+  padding: 0.5rem 0.875rem 0.5rem 1.5rem;
+  display: block;
+  border-radius: 6px;
+  transition: all 150ms ease;
+  line-height: 1.5;
+}
+
+.menu__link:hover {
+  background: var(--ifm-background-surface-color);
+  color: var(--ifm-font-color-base) !important;
+  padding-left: 1.75rem;
+}
+
+/* Active state */
+.menu__link--active {
+  background: var(--ifm-color-primary) !important;
+  color: var(--ifm-background-color) !important;
+  font-weight: 500;
+  padding-left: 1.75rem;
+}
+
+/* Remove all decorative elements */
+.menu__link::before,
+.menu__link--sublist::before {
+  display: none !important;
+}
+
+/* ============================================
+   Fix Category Header Visibility
+   ============================================ */
+
+/* Ensure category headers (Routing, BGP, MPLS, OSPF, Projects, Junos) are visible */
+.theme-doc-sidebar-menu .menu__link--sublist {
+  color: #000000 !important;
+}
+
+[data-theme='dark'] .theme-doc-sidebar-menu .menu__link--sublist {
+  color: #ffffff !important;
+}
+
+/* Also target collapsed state */
+.menu__list-item--collapsed .menu__link--sublist {
+  color: #000000 !important;
+  opacity: 1 !important;
+}
+
+[data-theme='dark'] .menu__list-item--collapsed .menu__link--sublist {
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+
+/* Make sure hover state doesn't hide text */
+.theme-doc-sidebar-menu .menu__link--sublist:hover {
+  color: #000000 !important;
+  opacity: 1 !important;
+}
+
+[data-theme='dark'] .theme-doc-sidebar-menu .menu__link--sublist:hover {
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+
+/* Remove any opacity from category items */
+.menu__list-item > .menu__link--sublist {
+  opacity: 1 !important;
+}
+
+/* ============================================
+   Ultra-Modern Sidebar Navigation
+   Creative & Minimalistic Design
+   ============================================ */
+
+/* === SIDEBAR CONTAINER === */
+.doc-sidebar-container {
+  background: linear-gradient(
+    180deg,
+    var(--ifm-background-color) 0%,
+    rgba(0, 0, 0, 0.02) 100%
+  );
+  backdrop-filter: blur(20px);
+  border-right: 1px solid var(--ifm-background-border-color);
+}
+
+/* === MAIN MENU WRAPPER === */
+.theme-doc-sidebar-menu {
+  position: relative;
+}
+
+/* Add subtle animated gradient line at top */
+.theme-doc-sidebar-menu::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0.75rem;
+  right: 0.75rem;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--ifm-color-primary),
+    transparent
+  );
+  opacity: 0.15;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% { opacity: 0.1; transform: scaleX(0.8); }
+  50% { opacity: 0.2; transform: scaleX(1); }
+}
+
+/* === CATEGORY HEADERS (Routing, BGP, etc) === */
+.menu__link--sublist {
+  position: relative;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ifm-font-color-base) !important;
+  padding: 0.875rem 1rem;
+  margin: 0.5rem 0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+/* Animated gradient border on hover */
+.menu__link--sublist::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(
+    180deg,
+    var(--ifm-color-primary),
+    rgba(0, 0, 0, 0.3)
+  );
+  transform: scaleY(0);
+  transition: transform 200ms ease;
+  border-radius: 0 2px 2px 0;
+}
+
+.menu__link--sublist:hover::before {
+  transform: scaleY(1);
+}
+
+/* Subtle glow effect on hover */
+.menu__link--sublist:hover {
+  background: linear-gradient(
+    90deg,
+    var(--ifm-background-surface-color) 0%,
+    rgba(0, 0, 0, 0.02) 100%
+  );
+  transform: translateX(4px);
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* === MODERN CARET/ARROW === */
+.menu__caret {
+  position: relative;
+  width: 20px !important;
+  height: 20px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.5;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Custom chevron using CSS */
+.menu__caret::before {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menu__list-item--collapsed .menu__caret::before {
+  transform: rotate(-45deg);
+}
+
+.menu__link--sublist:hover .menu__caret {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.menu__list-item--collapsed .menu__link--sublist:hover .menu__caret::before {
+  transform: rotate(-45deg) scale(1.1);
+}
+
+/* Hide default SVG caret */
+.menu__caret > svg {
+  display: none;
+}
+
+/* === SUBMENU CONTAINER === */
+.menu__list .menu__list {
+  position: relative;
+  margin: 0.25rem 0 0.5rem 0;
+  padding: 0;
+  margin-left: 0.75rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--ifm-background-border-color);
+  overflow: hidden;
+}
+
+/* Animated gradient line for submenu */
+.menu__list .menu__list::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    var(--ifm-color-primary),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.menu__list:hover > .menu__list::before {
+  opacity: 0.3;
+}
+
+/* === DOCUMENT LINKS === */
+.menu__link {
+  position: relative;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ifm-font-color-secondary) !important;
+  padding: 0.625rem 1rem 0.625rem 1.5rem;
+  display: flex;
+  align-items: center;
+  margin: 0.125rem 0;
+  border-radius: 6px;
+  transition: all 180ms cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+/* Animated indicator dot */
+.menu__link::before {
+  content: '';
+  position: absolute;
+  left: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%) scale(0);
+  width: 4px;
+  height: 4px;
+  background: var(--ifm-color-primary);
+  border-radius: 50%;
+  transition: all 180ms cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 8px var(--ifm-color-primary);
+}
+
+/* Hover state */
+.menu__link:hover {
+  background: var(--ifm-background-surface-color);
+  color: var(--ifm-font-color-base) !important;
+  padding-left: 1.75rem;
+  transform: translateX(2px);
+}
+
+.menu__link:hover::before {
+  transform: translateY(-50%) scale(1);
+}
+
+/* === ACTIVE STATE (current page) === */
+.menu__link--active {
+  background: linear-gradient(
+    90deg,
+    var(--ifm-color-primary) 0%,
+    rgba(0, 0, 0, 0.95) 100%
+  ) !important;
+  color: var(--ifm-background-color) !important;
+  font-weight: 600;
+  padding-left: 1.75rem;
+  box-shadow: 
+    0 2px 12px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transform: translateX(4px);
+}
+
+.menu__link--active::before {
+  background: var(--ifm-background-color) !important;
+  transform: translateY(-50%) scale(1.25);
+  box-shadow: 
+    0 0 12px var(--ifm-background-color),
+    0 0 24px var(--ifm-background-color);
+}
+
+/* === SMOOTH HEIGHT ANIMATIONS === */
+.menu__list {
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menu__list-item--collapsed .menu__list {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+
+/* === STAGGERED ENTRANCE ANIMATION === */
+@keyframes slideInStagger {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.menu__list-item {
+  animation: slideInStagger 300ms ease backwards;
+}
+
+.menu__list-item:nth-child(1) { animation-delay: 0ms; }
+.menu__list-item:nth-child(2) { animation-delay: 50ms; }
+.menu__list-item:nth-child(3) { animation-delay: 100ms; }
+.menu__list-item:nth-child(4) { animation-delay: 150ms; }
+.menu__list-item:nth-child(5) { animation-delay: 200ms; }
+.menu__list-item:nth-child(n+6) { animation-delay: 250ms; }
+
+/* === SCROLLBAR === */
+.doc-sidebar-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.doc-sidebar-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.doc-sidebar-container::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    var(--ifm-color-primary),
+    rgba(0, 0, 0, 0.3)
+  );
+  border-radius: 6px;
+}
+
+.doc-sidebar-container::-webkit-scrollbar-thumb:hover {
+  background: var(--ifm-color-primary);
+}
+
+/* === SUBTLE PARTICLE EFFECT === */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+/* === BADGE/COUNT INDICATOR === */
+.menu__link-badge {
+  background: linear-gradient(
+    135deg,
+    var(--ifm-color-primary),
+    rgba(0, 0, 0, 0.8)
+  );
+  color: var(--ifm-background-color);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  padding: 0.125rem 0.5rem;
+  border-radius: 12px;
+  margin-left: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 996px) {
+  .doc-sidebar-container {
+    background: var(--ifm-background-color);
+  }
+  
+  .theme-doc-sidebar-menu::before {
+    left: 1rem;
+    right: 1rem;
+  }
+}
+
+/* === REMOVE ALL PREVIOUS DECORATIVE ELEMENTS === */
+.menu__link::after,
+.menu__link--sublist::after {
+  display: none !important;
+}
+
+/* ============================================
+   Fix Active State & Hover Issues
+   ============================================ */
+
+/* === REMOVE ACTIVE BACKGROUND RECTANGLE === */
+.menu__link--active {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding-left: 1.5rem;
+  transform: none !important;
+}
+
+/* === ELEGANT DOT FOR ACTIVE STATE === */
+.menu__link--active::before {
+  width: 6px !important;
+  height: 6px !important;
+  left: 1rem !important;
+  background: var(--ifm-color-primary) !important;
+  box-shadow: 
+    0 0 0 3px var(--ifm-background-surface-color),
+    0 0 0 5px var(--ifm-color-primary) !important;
+  transform: translateY(-50%) scale(1) !important;
+}
+
+/* === FIX HOVER TEXT VISIBILITY === */
+.menu__link:hover {
+  background: transparent !important;
+  color: var(--ifm-font-color-base) !important;
+  padding-left: 1.75rem;
+}
+
+/* === FIX CATEGORY HEADER HOVER === */
+.menu__link--sublist:hover {
+  background: transparent !important;
+  color: var(--ifm-font-color-base) !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* === CLEAN UP CARET STYLING === */
+.menu__link--sublist:hover .menu__caret {
+  opacity: 0.8;
+  transform: scale(1);
+}
+
+.menu__list-item--collapsed .menu__link--sublist:hover .menu__caret {
+  transform: rotate(-90deg) scale(1);
+}
+
+/* === REMOVE ALL BACKGROUNDS AND SHADOWS === */
+.menu__link,
+.menu__link:hover,
+.menu__link--active,
+.menu__link--sublist,
+.menu__link--sublist:hover {
+  background-image: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* ============================================
+   Simplified Minimalistic Sidebar
+   ============================================ */
+
+/* === REMOVE COMPLEX EFFECTS FOR CLEAN LOOK === */
+
+/* Remove all transforms on hover */
+.menu__link:hover {
+  transform: none !important;
+}
+
+.menu__link--sublist:hover {
+  transform: none !important;
+}
+
+/* Remove magnetic effect transforms */
+.menu__link,
+.menu__link--sublist {
+  transition: color 150ms ease, opacity 150ms ease !important;
+}
+
+/* Clean, simple active dot */
+.menu__link--active::before {
+  width: 6px !important;
+  height: 6px !important;
+  background: var(--ifm-color-primary) !important;
+  box-shadow: 0 0 0 2px var(--ifm-background-surface-color) !important;
+  transform: translateY(-50%) scale(1) !important;
+}
+
+/* Simple hover dot */
+.menu__link:hover::before {
+  width: 4px !important;
+  height: 4px !important;
+  background: var(--ifm-color-primary) !important;
+  box-shadow: none !important;
+  transform: translateY(-50%) scale(1) !important;
+}
+
+/* Remove all gradients */
+.menu__link--active,
+.menu__link:hover,
+.menu__link--sublist:hover {
+  background: transparent !important;
+  background-image: none !important;
+}
+
+/* Clean category headers */
+.menu__link--sublist {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Remove border effects */
+.menu__link--sublist::before {
+  display: none !important;
+}
+
+/* === ELEGANT MINIMALISTIC DESIGN === */
+
+/* Category headers - clean and bold */
+.menu__link--sublist {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ifm-font-color-base) !important;
+  opacity: 1 !important;
+}
+
+/* Document links */
+.menu__link {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--ifm-font-color-secondary) !important;
+  padding: 0.5rem 1rem 0.5rem 1.5rem;
+}
+
+.menu__link:hover {
+  color: var(--ifm-font-color-base) !important;
+  padding-left: 1.75rem;
+  background: transparent !important;
+}
+
+/* Active state - just the dot */
+.menu__link--active {
+  color: var(--ifm-font-color-base) !important;
+  font-weight: 500;
+  background: transparent !important;
+}
+
+/* Simple chevron without extra effects */
+.menu__caret {
+  opacity: 0.4 !important;
+  transition: transform 200ms ease, opacity 150ms ease !important;
+}
+
+.menu__caret:hover {
+  opacity: 0.7 !important;
+}
+
+/* Remove all box shadows */
+.menu__link,
+.menu__link:hover,
+.menu__link--active,
+.menu__link--sublist,
+.menu__link--sublist:hover {
+  box-shadow: none !important;
+}
+
+/* Clean submenu border */
+.menu__list .menu__list {
+  border-left: 1px solid var(--ifm-background-border-color) !important;
+  margin-left: 0.75rem;
+  padding-left: 1rem;
+}
+
+/* ============================================
+   COMPLETELY REMOVE ACTIVE BACKGROUND
+   ============================================ */
+
+/* Most specific selector to override everything */
+.theme-doc-sidebar-menu .menu__link--active,
+.theme-doc-sidebar-menu .menu__link.menu__link--active,
+.theme-doc-sidebar-menu .menu__list-item .menu__link--active,
+.doc-sidebar-container .menu__link--active {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  border: none !important;
+  outline: none !important;
+}
+
+/* Also override any inline styles or !important rules from other CSS */
+.menu__link--active[href] {
+  background: transparent !important;
+}
+
+/* Force transparent with higher specificity */
+@media (prefers-color-scheme: light) {
+  .theme-doc-sidebar-menu .menu__link--active {
+    background: transparent !important;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .theme-doc-sidebar-menu .menu__link--active {
+    background: transparent !important;
+  }
+}
+
+/* Target light mode specifically */
+[data-theme='light'] .menu__link--active,
+html:not([data-theme='dark']) .menu__link--active {
+  background: transparent !important;
+}
+
+/* Target dark mode specifically */
+[data-theme='dark'] .menu__link--active {
+  background: transparent !important;
+}
+
+/* ============================================
+   Fix Active Item Text Color
+   ============================================ */
+
+/* Make active item text color match other sidebar items */
+.theme-doc-sidebar-menu .menu__link--active,
+.doc-sidebar-container .menu__link--active,
+.menu__link--active {
+  color: var(--ifm-font-color-secondary) !important;
+}
+
+/* Override with higher specificity for active state */
+.menu__list-item > .menu__link--active {
+  color: var(--ifm-font-color-secondary) !important;
+}
+
+/* Ensure hover state of active item also uses secondary color */
+.menu__link--active:hover {
+  color: var(--ifm-font-color-secondary) !important;
+}
+
+/* ============================================
+   Elegant Active Dot Indicator
+   ============================================ */
+
+/* Create custom dot before active link */
+.menu__link--active::before {
+  content: '' !important;
+  position: absolute !important;
+  left: 1rem !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  
+  /* Dot size */
+  width: 8px !important;
+  height: 8px !important;
+  
+  /* Perfect circle */
+  border-radius: 50% !important;
+  
+  /* Primary color (black in light, white in dark) */
+  background: var(--ifm-color-primary) !important;
+  
+  /* Elegant ring effect */
+  box-shadow: 
+    0 0 0 3px var(--ifm-background-color),
+    0 0 0 5px var(--ifm-color-primary) !important;
+  
+  /* Smooth transitions */
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1) !important;
+  
+  /* Ensure visibility */
+  opacity: 1 !important;
+  z-index: 1 !important;
+}
+
+/* Subtle pulse animation for active dot */
+@keyframes dotPulse {
+  0%, 100% {
+    box-shadow: 
+      0 0 0 3px var(--ifm-background-color),
+      0 0 0 5px var(--ifm-color-primary);
+  }
+  50% {
+    box-shadow: 
+      0 0 0 3px var(--ifm-background-color),
+      0 0 0 7px var(--ifm-color-primary),
+      0 0 12px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Apply pulse animation to active dot */
+.menu__link--active::before {
+  animation: dotPulse 2s ease-in-out infinite !important;
+}
+
+/* Ensure hover doesn't interfere with active dot */
+.menu__link--active:hover::before {
+  animation: dotPulse 2s ease-in-out infinite !important;
+  transform: translateY(-50%) scale(1) !important;
+}
+
+/* Remove any other before elements */
+.menu__link:not(.menu__link--active)::before {
+  content: none !important;
+}
+
+/* ============================================
+   Fix Active Dot Visibility
+   ============================================ */
+
+/* Force visible active dot with maximum contrast */
+.menu__link--active::before {
+  content: '' !important;
+  display: block !important;
+  visibility: visible !important;
+  
+  position: absolute !important;
+  left: 0.75rem !important;
+  top: 50% !important;
+  
+  /* Larger size for visibility */
+  width: 10px !important;
+  height: 10px !important;
+  
+  transform: translateY(-50%) !important;
+  border-radius: 50% !important;
+  
+  /* High contrast colors */
+  background: var(--ifm-color-primary) !important;
+  
+  /* Stronger ring effect */
+  box-shadow: 
+    0 0 0 3px var(--ifm-background-color),
+    0 0 0 6px var(--ifm-color-primary) !important;
+  
+  /* Remove animation that might hide it */
+  animation: none !important;
+  
+  /* Ensure it's on top */
+  z-index: 100 !important;
+  pointer-events: none !important;
+}
+
+/* Also create a fallback visible dot */
+.menu__link--active::after {
+  content: '' !important;
+  position: absolute !important;
+  left: 1rem !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  width: 6px !important;
+  height: 6px !important;
+  background: var(--ifm-color-primary) !important;
+  border-radius: 50% !important;
+  z-index: 101 !important;
+  pointer-events: none !important;
+}
+
+/* Make sure active link has enough padding for the dot */
+.menu__link--active {
+  padding-left: 2rem !important;
+}
+
+/* Force visibility in all themes */
+[data-theme='light'] .menu__link--active::before,
+[data-theme='dark'] .menu__link--active::before {
+  background: #000000 !important;
+  box-shadow: 
+    0 0 0 3px #ffffff,
+    0 0 0 6px #000000 !important;
+}
+
+[data-theme='dark'] .menu__link--active::before {
+  background: #ffffff !important;
+  box-shadow: 
+    0 0 0 3px #000000,
+    0 0 0 6px #ffffff !important;
+}
+
+[data-theme='light'] .menu__link--active::after {
+  background: #000000 !important;
+}
+
+[data-theme='dark'] .menu__link--active::after {
+  background: #ffffff !important;
+}
+
+/* ============================================
+   ULTRA-VISIBLE ACTIVE DOT
+   ============================================ */
+
+/* Maximum specificity override for active dot */
+.doc-sidebar-container .theme-doc-sidebar-menu .menu__list-item .menu__link.menu__link--active::before,
+.theme-doc-sidebar-menu .menu__link--active::before,
+html .theme-doc-sidebar-menu .menu__link--active::before {
+  content: '' !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  
+  position: absolute !important;
+  left: 0.5rem !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  
+  /* Large and visible */
+  width: 12px !important;
+  height: 12px !important;
+  border-radius: 50% !important;
+  
+  /* Pure black in light mode */
+  background: #000000 !important;
+  
+  /* White ring for contrast */
+  box-shadow: 
+    0 0 0 4px #ffffff,
+    0 0 0 7px #000000,
+    0 2px 8px rgba(0, 0, 0, 0.3) !important;
+  
+  z-index: 1000 !important;
+  pointer-events: none !important;
+  animation: none !important;
+}
+
+/* Dark mode - white dot with black ring */
+[data-theme='dark'] .doc-sidebar-container .theme-doc-sidebar-menu .menu__list-item .menu__link.menu__link--active::before,
+[data-theme='dark'] .theme-doc-sidebar-menu .menu__link--active::before {
+  background: #ffffff !important;
+  box-shadow: 
+    0 0 0 4px #000000,
+    0 0 0 7px #ffffff,
+    0 2px 8px rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Ensure padding for dot */
+.menu__link--active {
+  padding-left: 2.25rem !important;
+}
+
+/* Strong visual indicator */
+.menu__link--active {
+  font-weight: 600 !important;
+}
+
+/* Hover glow effect on active dot */
+.menu__link--active:hover::before {
+  box-shadow: 
+    0 0 0 4px #ffffff,
+    0 0 0 9px #000000,
+    0 0 20px rgba(0, 0, 0, 0.5) !important;
+}
+
+[data-theme='dark'] .menu__link--active:hover::before {
+  box-shadow: 
+    0 0 0 4px #000000,
+    0 0 0 9px #ffffff,
+    0 0 20px rgba(255, 255, 255, 0.5) !important;
 }
