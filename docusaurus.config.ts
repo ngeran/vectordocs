@@ -80,7 +80,8 @@ const config: Config = {
           position: 'left',
           label: 'Posts',
         },
-        {to: '/blog', label: 'Blog', position: 'left'},
+        // Blog disabled until content is ready
+        // {to: '/blog', label: 'Blog', position: 'left'},
         {
           href: 'https://github.com/ngeran/VectorDocs',
           label: 'GitHub',

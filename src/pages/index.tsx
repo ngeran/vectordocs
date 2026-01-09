@@ -1,6 +1,7 @@
 import type {ReactNode} from 'react';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import Layout from '@theme/Layout';
 import {HeroSection} from '@site/src/components/HeroSection';
 import {ContentGrid} from '@site/src/components/ContentGrid';
@@ -12,6 +13,7 @@ import styles from './index.module.css';
  * Latest 3 posts from the documentation
  * Sorted by date (most recent first)
  * Excluding draft posts
+ * Note: Image paths are relative and will be resolved with useBaseUrl
  */
 const latestPosts = [
   {
@@ -84,7 +86,7 @@ export default function Home(): ReactNode {
                 title={post.title}
                 description={post.description}
                 to={post.to}
-                image={post.image}
+                image={useBaseUrl(post.image)}
                 date={post.date}
                 readTime={post.readTime}
                 tags={post.tags}
