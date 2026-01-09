@@ -36,7 +36,7 @@ jobs:
           git config --global user.name "ngeran"
           git config --global user.email "ngeran@gmail.com"
           # Ensure git uses SSH for the push
-          git remote set-url origin git@github.com:ngeran/VectorDocs.git
+          git remote set-url origin git@github.com:ngeran/vectordocs.git
           npm run deploy
         env:
           USE_SSH: true
