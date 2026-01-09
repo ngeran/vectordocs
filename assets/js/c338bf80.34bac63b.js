@@ -1,1 +1,0 @@
-"use strict";(globalThis.webpackChunkvectordocs=globalThis.webpackChunkvectordocs||[]).push([[7984],{621(o){o.exports=JSON.parse('{"metadata":{"permalink":"/VectorDocs/blog","page":1,"postsPerPage":10,"totalPages":1,"totalCount":4,"blogDescription":"Blog","blogTitle":"Blog"}}')}}]);

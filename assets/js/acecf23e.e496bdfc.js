@@ -1,1 +1,0 @@
-"use strict";(globalThis.webpackChunkvectordocs=globalThis.webpackChunkvectordocs||[]).push([[1903],{1912(o){o.exports=JSON.parse('{"blogBasePath":"/VectorDocs/blog","blogTitle":"Blog","authorsListPath":"/VectorDocs/blog/authors"}')}}]);
